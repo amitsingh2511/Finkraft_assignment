@@ -1,6 +1,8 @@
+from datetime import date
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from . import models, schemas
+from models import Booking, Vendor
 
 def create_vendor(db: Session, vendor: schemas.VendorCreate):
     """
@@ -30,11 +32,19 @@ def create_booking(db: Session, booking: schemas.BookingCreate):
         raise ValueError("Booking with this ID already exists.")
     return db_booking
 
-def get_bookings(db: Session, skip: int = 0, limit: int = 10):
-    """
-    Retrieves a list of bookings with pagination.
-    """
-    return db.query(models.Booking).offset(skip).limit(limit).all()
+def get_bookings(db: Session, skip: int = 0, limit: int = 10,date: date = None, vendor: str = None):
+    query = db.query(Booking).join(Vendor).offset(skip).limit(limit)
+
+    if date:
+        # Filter by booking date
+        query = query.filter(Booking.booking_date == date)
+
+    if vendor:
+        # Filter by vendor name
+        query = query.filter(Vendor.name.ilike(f"%{vendor}%"))
+
+    return query.all()
+
 
 def get_booking(db: Session, booking_id: int):
     """

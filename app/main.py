@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from datetime import date
+from fastapi import FastAPI, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from app import models, schemas, crud
 from .db import engine, Base, get_db
@@ -44,17 +45,22 @@ def create_booking(booking: schemas.BookingCreate, db: Session = Depends(get_db)
 
 
 @app.get("/bookings", response_model=list[schemas.Booking])
-def read_bookings(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def read_bookings(skip: int = 0, limit: int = 10, 
+    date: date = Query(None),
+    vendor: str = Query(None),
+    db: Session = Depends(get_db)):
     """
     Retrieves a list of bookings from the database.
     Args:
         skip: Number of records to skip (pagination).
         limit: Number of records to return (pagination).
+        date: Filter by booking date (optional).
+        vendor: Filter by vendor name (optional).
         db: Database session dependency.
     Returns:
         A list of bookings with vendor details.
     """
-    return crud.get_bookings(db=db, skip=skip, limit=limit)
+    return crud.get_bookings(db=db, skip=skip, limit=limit,date=date, vendor=vendor)
 
 
 
