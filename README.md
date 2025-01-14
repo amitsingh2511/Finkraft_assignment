@@ -1,5 +1,11 @@
 # Finkraft_assignment
 
+## API Documentation (Swagger UI)
+
+FastAPI provides an interactive API documentation through Swagger UI. You can access it by navigating to the following URL in your browser:
+
+- [Swagger UI](http://127.0.0.1:8001/docs)
+
 ## Project run command
 
     1. Navigate to the project directory:
@@ -40,3 +46,11 @@ my_project/
   ├── Dockerfile
   ├── README.md
 ```
+
+### Alternative Documentation (ReDoc):
+
+FastAPI also provides an alternative documentation interface called ReDoc. You can access it at:
+
+- [ReDoc Documentation](http://127.0.0.1:8001/redoc)
+
+ReDoc provides a different style of documentation and might be preferable for some users.
