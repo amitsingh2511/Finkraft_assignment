@@ -44,14 +44,15 @@ class BookingBase(BaseModel):
     vendor_id: int = Field(..., gt=0, description="Vendor ID (must be a positive integer)")
 
     # Pydantic root validation
-    @validator("booking_date")
-    def validate_booking_date(cls, value):
-        """
-        Ensures the booking date is not in the future.
-        """
-        if value > datetime.utcnow():
-            raise ValueError("Booking date cannot be in the future.")
-        return value
+    # @validator("booking_date")
+    # def validate_booking_date(cls, value):
+    #     """
+    #     Ensures the booking date is not in the future.
+    #     """
+        
+        # if value > datetime.utcnow():
+        #     raise ValueError("Booking date cannot be in the future.")
+        # return value
 
 class BookingCreate(BookingBase):
     """
