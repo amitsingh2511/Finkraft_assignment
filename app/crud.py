@@ -2,7 +2,7 @@ from datetime import date
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 from . import models, schemas
-from models import Booking, Vendor
+from app.models import Booking, Vendor
 
 def create_vendor(db: Session, vendor: schemas.VendorCreate):
     """
